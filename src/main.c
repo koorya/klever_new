@@ -752,7 +752,7 @@ int main(void)
 	menuInit();
 
 	glcd_Buffer_Clear();
-	glcd_String("** ›Õ≈–√Œ«¿œ— *", 0, 0, FonON_InversOFF);
+	glcd_String("** ›  Õ≈–√Œ«¿œ— *", 0, 0, FonON_InversOFF);
 	glcd_String("* —ÚÂÌ‰  À≈¬≈– *", 0, 3, FonON_InversOFF);
 	glcd_String("*   FW.12a18   *", 0, 7, FonON_InversOFF);
 	glcd_Show();
