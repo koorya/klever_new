@@ -2,8 +2,6 @@
 !/src
 !/Debug
 /Debug/*
-!/Debug/*.hex
+!Debug/*.hex
 !/Libraries
 !.gitignore
-
-/Debug/
