@@ -48,8 +48,9 @@ void menuInit(void){
 			initItemLabel(&(item[item_index++]), "Формулы", W(FORMULAS), 0, 0);
 			initItemParameter(&(item[item_index++]),"a лев.   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_left, dec_angle_left, show_angle_left), 1, 2, line);
 			initItemParameter(&(item[item_index++]),"a прав.  ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 3, line);
+			initItemParameter(&(item[item_index++]),"нуль дт  ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 4, line);
 			initItemSubmenu(&(item[item_index++]), "<назад", W(FORMULAS), W(MODE), 0, 7);
-			initItemParameter(&(item[item_index++]), "датч.", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_sensor), 11, 4, column);
+			initItemParameter(&(item[item_index++]), "датч.", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_sensor), 10, 0, column);
 			initItemParameter(&(item[item_index++]), "натяг", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_tension), 11, 6, column);
 
 		initItemParameter(&(item[item_index++]), 	"Не регул  ", W(MODE), initObjChangeable(&(obj[obj_index++]), switch_mode_not_reg_state, switch_mode_not_reg_state, show_mode_not_reg_state), 1, 2, line);  

@@ -127,7 +127,7 @@ void show_save_state(char * ret){
 
 void show_cur_sensor(char * ret){
 //	sprintf(ret, "[%.02f]", N);
-	sprintf(ret, "%3d.%1d", ((int)(N*100))/100, ((int)(N*10))%10);
+	sprintf(ret, "%3d.%02d", ((int)(N*100))/100, ((int)(N*100))%100);
 //	sprintf(ret, "%3d.%1d", ((int)(N*100))/100, ((int)(N*10))%10);
 }
 void show_cur_tension(char * ret){
