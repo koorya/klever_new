@@ -9,6 +9,7 @@
 #include "tension_math.h"
 
 extern volatile float N;
+extern volatile float tenzo_zero_value;
 extern volatile float T;
 
 // переменная-коэффициент для 0-го аналогово входа АЦП (IN_10)
@@ -22,6 +23,7 @@ volatile uint16_t previous_angle_right;
 
 void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r){ //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
 	N = (K_a0 * 3.3 * A0_raw * 3.7243053 ) / 4095; //
+	N -= tenzo_zero_value;
 //	N = (K_a0 * 3.3 * A0_raw * 3.7 ) / 4095;
 	//3.3 - напряжение питания АЦП,
 	//3.7 - коэфициент деления входа АЦП, (3.7243053 - точномть определения усилия до 54 кг составляет 0,053 кг.

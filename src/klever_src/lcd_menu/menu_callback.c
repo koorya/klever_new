@@ -124,6 +124,30 @@ void show_save_state(char * ret){
 	}
 }
 
+extern volatile float tenzo_zero_value;
+
+void save_tenzo_zero(void){
+	BDCR_UnLock();
+	uint16_t tenzo_zero_value_uint8 = 	(uint16_t)(tenzo_zero_value*100.0);
+	BDCR_Write_Word(BKP_DR10, tenzo_zero_value_uint8);
+	BDCR_Lock();
+}
+void inc_tenzo_zero(void){
+	tenzo_zero_value += 0.01;
+	if(tenzo_zero_value >= 10.0)
+		tenzo_zero_value -= 0.01;
+	save_tenzo_zero();
+}
+void dec_tenzo_zero(void){
+	if(tenzo_zero_value>0)
+		tenzo_zero_value -= 0.01;
+	save_tenzo_zero();
+}
+void show_tenzo_zero(char * ret){
+	sprintf(ret, "%1d.%02d", ((int)(tenzo_zero_value*100))/100, ((int)(tenzo_zero_value*100))%100);
+//	sprintf(ret, "%2d.%1d", angle_right/10, angle_right%10);
+}
+
 
 void show_cur_sensor(char * ret){
 //	sprintf(ret, "[%.02f]", N);
@@ -178,6 +202,7 @@ void switch_save_state(void){
 	BDCR_Write_Word(BKP_DR7, previous_rope_tension_bottom_limit);		
 	BDCR_Write_Word(BKP_DR8, previous_angle_left);
 	BDCR_Write_Word(BKP_DR9, previous_angle_right);
+	//здесь опасно выбирать регистры, т.к. они используются по всему проекту. Например в файле калбеков я использовал один для записи нуля тензодатчика
 	BDCR_Lock();
 }
 

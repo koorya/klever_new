@@ -221,6 +221,7 @@ volatile uint32_t Tenzo_result = 0;
 volatile uint32_t Tenzo_value = 0;
 
 volatile float N = 0;
+volatile float tenzo_zero_value = 0;
 volatile float T = 0;
 
 
@@ -702,6 +703,11 @@ void Read_BDCR(void)
 	angle_left = previous_angle_left;
 	previous_angle_right = BDCR_Read_Word(BKP_DR9);
 	angle_right = previous_angle_right;
+
+
+	uint16_t tenzo_zero_value_uint16 = BDCR_Read_Word(BKP_DR10);
+	tenzo_zero_value = tenzo_zero_value_uint16;
+	tenzo_zero_value /= 100.0;
 
 	BDCR_Lock();
 }
