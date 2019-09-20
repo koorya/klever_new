@@ -20,6 +20,7 @@ extern void save_tenzo_zero(void);
 extern void inc_tenzo_zero(void);
 extern void dec_tenzo_zero(void);
 extern void show_tenzo_zero(char * ret);
+extern void show_optical_sensor_voltage(char * ret);
 extern void show_cur_sensor(char * ret);
 extern void show_cur_tension(char * ret);
 extern void show_mode(char * ret);

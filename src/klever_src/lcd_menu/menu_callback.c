@@ -3,6 +3,8 @@
 #include "../main_sm.h"
 #include "../modbus.h"
 
+
+extern volatile uint32_t optical_sensor_voltage;
 extern volatile float N;
 extern volatile float T;
 extern volatile uint32_t rope_tension_up_limit;
@@ -148,6 +150,9 @@ void show_tenzo_zero(char * ret){
 //	sprintf(ret, "%2d.%1d", angle_right/10, angle_right%10);
 }
 
+void show_optical_sensor_voltage(char * ret){
+	sprintf(ret, "%3d.%02d", (int)(optical_sensor_voltage*1000/4095)/100, (int)(optical_sensor_voltage*1000/4095)%100);
+}
 
 void show_cur_sensor(char * ret){
 //	sprintf(ret, "[%.02f]", N);

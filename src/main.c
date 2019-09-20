@@ -290,61 +290,63 @@ void delay_ms(uint32_t tick)
 //
 
 // Получение значений аналоговых входов с АЦП (каналы с 0 по 3)
-void ADC_work(void)
-{
+void ADC_work(void) {
 
 	// Обработка АЦП (выбор канала, запуск одиночного преобразование, получение значений, обработка)
-		switch(ADC_state)
-		{
-		   case 0: {
-								if(!adc_delay)
-								{
-									// Режим одиночного преобразования (1 канал в регулярной группе)
-									ADC1->SQR1 = 0;
-									ADC1->SQR2 = 0;
-									ADC1->SQR3 = 0;
+	switch (ADC_state) {
+	case 0: {
+		if (!adc_delay) {
+			// Режим одиночного преобразования (1 канал в регулярной группе)
+			ADC1->SQR1 = 0;
+			ADC1->SQR2 = 0;
+			ADC1->SQR3 = 0;
 
-									// Выбираем канал для работы с АЦП (10,11,12,13) => 1 канал в регулярной группе (записываем номер канала для преобразования)
-									ADC1->SQR3 = ADC_ch + 10;
-									ADC_state = 1;
+			// Выбираем канал для работы с АЦП (10,11,12,13) => 1 канал в регулярной группе (записываем номер канала для преобразования)
+			ADC1->SQR3 = ADC_ch + 10;
+			ADC_state = 1;
 //									adc_delay = 25;
-									break;
-							  }
-							}
+			break;
+		}
+	}
 
-       case 1: {
-								if(!adc_delay)
-								{
-								ADC1->CR2 |= ADC_CR2_SWSTART;
-								ADC_state = 2;
-								break;
-								}
-							 }
+	case 1: {
+		if (!adc_delay) {
+			ADC1->CR2 |= ADC_CR2_SWSTART;
+			ADC_state = 2;
+			break;
+		}
+	}
 
-       case 2: {
-			         if(ADC1->SR & ADC_SR_EOC)
-							 {
-								switch(ADC_ch)
-								{
-									case 0: A0_raw = ADC1->DR; ADC_ch = 0; break;
-/*
-									case 0: A0_raw = ADC1->DR; ADC_ch = 1; break;
-									case 1: A1_raw = ADC1->DR; ADC_ch = 2; break;
-									case 2: A2_raw = ADC1->DR; ADC_ch = 3; break;
-									case 3: A3_raw = ADC1->DR; ADC_ch = 0; break;
-*/
-									default:
-										ADC_ch = 0;
-									break;
+	case 2: {
+		if (ADC1->SR & ADC_SR_EOC) {
+			switch (ADC_ch) {
+			case 0:
+				A0_raw = ADC1->DR;
+				ADC_ch = 1;
+				break;
+			case 1:
+				A1_raw = ADC1->DR;
+				ADC_ch = 0;
+				break;
+				/*
+				 case 0: A0_raw = ADC1->DR; ADC_ch = 1; break;
+				 case 1: A1_raw = ADC1->DR; ADC_ch = 2; break;
+				 case 2: A2_raw = ADC1->DR; ADC_ch = 3; break;
+				 case 3: A3_raw = ADC1->DR; ADC_ch = 0; break;
+				 */
+			default:
+				ADC_ch = 0;
+				break;
 
-								}
-								ADC_state= 0;
+			}
+			ADC_state = 0;
 			//					adc_delay = 25;
-			         }
-					     break;
-				      }
-			 default: break;
-		 }
+		}
+		break;
+	}
+	default:
+		break;
+	}
 }
 //
 
@@ -640,6 +642,9 @@ void SysTick_Handler(void)
 	ADC_work();
 
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	calculateOpticalSensorVoltage(A1_raw);
+	A1_raw = 0;
 
 	calculateTension(A0_raw, angle_left, angle_right);
 

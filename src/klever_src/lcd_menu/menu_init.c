@@ -49,6 +49,7 @@ void menuInit(void){
 			initItemParameter(&(item[item_index++]),"a лев.   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_left, dec_angle_left, show_angle_left), 1, 2, line);
 			initItemParameter(&(item[item_index++]),"a прав.  ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 3, line);
 			initItemParameter(&(item[item_index++]),"нуль тд  ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);
+			initItemParameter(&(item[item_index++]),"дальном  ", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 5, line);
 			initItemSubmenu(&(item[item_index++]), "<назад", W(FORMULAS), W(MODE), 0, 7);
 			initItemParameter(&(item[item_index++]), "датч.", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_sensor), 10, 0, column);
 			initItemParameter(&(item[item_index++]), "нат€г", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_tension), 11, 6, column);
