@@ -28,6 +28,7 @@ typedef struct
     uint8_t RTC_hours;
     uint8_t RTC_minutes;
     uint8_t RTC_seconds;
+    uint8_t RTC_mseconds;
     uint8_t RTC_date;
     uint8_t RTC_wday;
     uint8_t RTC_month;

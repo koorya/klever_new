@@ -80,8 +80,8 @@ uint8_t RTC_Init(void)
 		while ((RCC->BDCR & RCC_BDCR_LSERDY) != RCC_BDCR_LSERDY) {}
 		RCC->BDCR |= RCC_RTCCLKSource_LSE;
 			
-		// Устанавливаем делитель, чтобы часы считали секунды
-		RTC_SetPrescaler(0x7FFF); 
+		// Устанавливаем делитель, чтобы часы считали 1/32768 секунд за такт
+		RTC_SetPrescaler(0);
  
 		// Включаем RTC
 		RCC->BDCR |= RCC_BDCR_RTCEN;
@@ -121,7 +121,7 @@ uint32_t RTC_GetRTC_Counter(RTC_Type* RTC_DateTimeStruct)
 	JDN+=(RTC_DateTimeStruct->RTC_minutes*60);
 	JDN+=(RTC_DateTimeStruct->RTC_seconds);
 	
-	return JDN;
+	return JDN*0x8000;
 }
 
 //
@@ -138,8 +138,13 @@ void RTC_GetDateTime(uint32_t RTC_Counter, RTC_Type* RTC_DateTimeStruct)
     int hour = 0;
     int min = 0;
     int sec = 0;
+    int msec = 0;
     uint64_t jd = 0;;
     uint64_t jdn = 0;
+
+    msec = ((RTC_Counter % 0x8000) * 1000) / 0x8000;//берем остаток, который не войдет в секунды, умножаем его на единице времени за такт (1/32768), получаем время в секуднах, затем умножаем его на 1000, получаем милисекунды
+
+    RTC_Counter /= 0x8000;
  
     jd = ((RTC_Counter+43200)/(86400>>1)) + (2440587<<1) + 1;
     jdn = jd>>1;
@@ -174,6 +179,7 @@ void RTC_GetDateTime(uint32_t RTC_Counter, RTC_Type* RTC_DateTimeStruct)
     RTC_DateTimeStruct->RTC_hours = hour;
     RTC_DateTimeStruct->RTC_minutes = min;
     RTC_DateTimeStruct->RTC_seconds = sec;
+    RTC_DateTimeStruct->RTC_mseconds = msec;
     RTC_DateTimeStruct->RTC_wday = wday;
 }
 //
