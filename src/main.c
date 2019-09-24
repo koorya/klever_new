@@ -405,8 +405,8 @@ void generateErrorOfHighTension(){
 	if(Now_Alarm != 8)
 		if(Now_Alarm != 9){
 			Now_Alarm = 8;
-
-			LOG_PROCESS_ON_FLAG = 0;
+			if(!onthefly_log_mode)
+				LOG_PROCESS_ON_FLAG = 0;
 
 			LogTermStruct log_term;
 			log_term.regulation_cmd = tension_cmd;
