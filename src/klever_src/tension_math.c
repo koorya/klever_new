@@ -51,7 +51,8 @@ void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r){ //A0_raw - Ç
 
 		denom = (sin(a_r_f) + sin(a_l_f));
 	}
-
+	if(denom < 1e-5)
+		denom = 1e-5;
 	T = (4.1124 * N - 25.3748) / denom;
 
 	if(T < 0) T = 0;
