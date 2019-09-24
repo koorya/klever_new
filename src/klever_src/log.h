@@ -11,6 +11,7 @@ typedef struct{ //12 bytes + 4 = 16 bytes
 	float tension;
 
 	uint32_t cycle_cnt;//13,06,2019 добавил ресурс
+	uint32_t optical_sensor_voltage;
 
 } LogTermStruct;
 

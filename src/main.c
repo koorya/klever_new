@@ -578,7 +578,7 @@ void SysTick_Handler(void)
 			log_term.tension = T;
 			log_term.time_stamp = RTC_GetCounter();
 			log_term.cycle_cnt = PNP_count;
-
+			log_term.optical_sensor_voltage = optical_sensor_voltage;
 			pushValueToBuffer(log_term);
 
 			if(!usart_buff){
