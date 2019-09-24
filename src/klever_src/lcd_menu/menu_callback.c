@@ -161,7 +161,11 @@ void show_cur_sensor(char * ret){
 }
 void show_cur_tension(char * ret){
 //	sprintf(ret, "[%.02f]", N);
-	sprintf(ret, "%3d.%1d", ((int)(T*100))/100, ((int)(T*10))%10);
+	int div = (((int)(T*100))/100);
+	if (div / 1000)
+		sprintf(ret, "ovrld");
+	else
+		sprintf(ret, "%3d.%1d", div, ((int)(T*10))%10);
 //	sprintf(ret, "%3d.%1d", ((int)(N*100))/100, ((int)(N*10))%10);
 }
 void show_mode(char * ret){
