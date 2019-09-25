@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "RTC.h"
 #include "usart.h"
+#include "tension_math.h"
 
 #define LOG_BUFFER_SIZE 900 //12kb
 
@@ -11,7 +12,7 @@ typedef struct{ //12 bytes + 4 = 16 bytes
 	float tension;
 
 	uint32_t cycle_cnt;//13,06,2019 добавил ресурс
-	uint32_t optical_sensor_voltage;
+	Optical_Sensor_Struct optical_sensor;
 
 } LogTermStruct;
 

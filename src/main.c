@@ -567,6 +567,19 @@ void SysTick_Handler(void)
 
 /*--------------------КОНЕЦ БЛОКА ПИД РЕГУЛЯТОРА НАТЯЖЕНИЯ-------------------*/
 
+
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	// Обработка данных с АЦП по всем входным аналоговым входам ( канал 0 -> канал 3)
+	ADC_work();
+
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	calculateOpticalSensorVoltage(A1_raw);
+	A1_raw = 0;
+
+	calculateTension(A0_raw, angle_left, angle_right);
+
 	////////////////////////////////
 	if (!log_buff_delay) {
 		log_buff_delay = 20;
@@ -578,7 +591,7 @@ void SysTick_Handler(void)
 			log_term.tension = T;
 			log_term.time_stamp = RTC_GetCounter();
 			log_term.cycle_cnt = PNP_count;
-			log_term.optical_sensor_voltage = optical_sensor_voltage;
+			log_term.optical_sensor = optical_sensor_data;
 			pushValueToBuffer(log_term);
 
 			if(!usart_buff){
@@ -636,17 +649,7 @@ void SysTick_Handler(void)
 
 
 
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	// Обработка данных с АЦП по всем входным аналоговым входам ( канал 0 -> канал 3)
-	ADC_work();
-
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-	calculateOpticalSensorVoltage(A1_raw);
-	A1_raw = 0;
-
-	calculateTension(A0_raw, angle_left, angle_right);
 
 
 	if (T<rope_tension_bottom_limit) { generateErrorOfLowTension(); } //если ремень ослаб

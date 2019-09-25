@@ -20,7 +20,7 @@ volatile uint16_t angle_left = 200;
 volatile uint16_t angle_right = 200;
 volatile uint16_t previous_angle_left;
 volatile uint16_t previous_angle_right;
-volatile uint32_t optical_sensor_voltage;
+volatile volatile Optical_Sensor_Struct optical_sensor_data;
 
 void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r){ //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
 	N = (K_a0 * 3.3 * A0_raw * 3.7243053 ) / 4095; //
@@ -68,18 +68,24 @@ void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r){ //A0_raw - З
 void calculateOpticalSensorVoltage(uint16_t Ax_raw){
 	static uint8_t is_calcilation_not_first = 1;
 	static uint16_t data_counter = 0;
-	uint16_t window_size = 1000;
+	uint16_t window_size = 1;
 	static uint32_t optical_sensor_voltage_summ = 0;
+	static uint32_t time_stamp = 0;
+	time_stamp++;
 	if (Ax_raw == 0) return;
-	if (++data_counter <= window_size){
-		optical_sensor_voltage_summ += Ax_raw;
-	}else{
-		optical_sensor_voltage = optical_sensor_voltage_summ / window_size;
+
+	optical_sensor_voltage_summ += Ax_raw;
+	data_counter++;
+	if (data_counter >= window_size){
+		optical_sensor_data.optical_sensor_voltage = optical_sensor_voltage_summ / window_size;
+		optical_sensor_data.time_stamp = time_stamp;
 		data_counter = 0;
 		optical_sensor_voltage_summ = 0;
 		is_calcilation_not_first = 0;
 	}
-	if (is_calcilation_not_first == 1)
-		optical_sensor_voltage = Ax_raw;
+	if (is_calcilation_not_first == 1){
+		optical_sensor_data.optical_sensor_voltage = Ax_raw;
+		optical_sensor_data.time_stamp = time_stamp;
+	}
 
 }
