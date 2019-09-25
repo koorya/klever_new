@@ -752,11 +752,11 @@ int main(void)
 
 	// Корректировка текущей даты/времени (разово при прошивки
 /*
-	RTC_DateTime.RTC_date = 14;
-	RTC_DateTime.RTC_month = 3;
+	RTC_DateTime.RTC_date = 25;
+	RTC_DateTime.RTC_month = 9;
 	RTC_DateTime.RTC_year = 2019;
-	RTC_DateTime.RTC_hours = 16;
-	RTC_DateTime.RTC_minutes = 33;
+	RTC_DateTime.RTC_hours = 12;
+	RTC_DateTime.RTC_minutes = 44;
 	RTC_DateTime.RTC_seconds = 00;
 	RTC_SetCounter(RTC_GetRTC_Counter(&RTC_DateTime));
 */

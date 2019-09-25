@@ -88,14 +88,17 @@ void LogTermToStr(LogTermStruct * term, char * str){
 	
 //	sprintf(str, "%02d.%02d.%04d_%02d.%02d.%02d - time | %i - tension | %i - cmd || %i - test\n", (int)0, (int)0, (int)0, (int)0, (int)0, (int)0, (int)((float)1.3*100),  (int)0, (int) 0);
 
-	  sprintf(str, "%02d.%02d.%02d.%03d - time | %3d.%02d V | %5i - tension | %4i - cmd | %8i - cycles | %i\n",
+	  sprintf(str, "%02d.%02d.%04d_%02d.%02d.%02d - time | %5i - tension | %4i - cmd | %8i - cycles | %3d.%02d V %i\n",
+									RTC_DateTime.RTC_date, 
+												RTC_DateTime.RTC_month, 
+														RTC_DateTime.RTC_year, 
 																	RTC_DateTime.RTC_hours, 
 																				RTC_DateTime.RTC_minutes, 
-																							RTC_DateTime.RTC_seconds,
-																								RTC_DateTime.RTC_mseconds,
-																									(int)(term->optical_sensor.optical_sensor_voltage*1000/4095)/100, (int)(term->optical_sensor.optical_sensor_voltage*1000/4095)%100,
+																							RTC_DateTime.RTC_seconds, 
 																													(int)(term->tension*100), 
-																																					(int)term->regulation_cmd, (int)term->cycle_cnt, (int)(term->optical_sensor.time_stamp));
+																														(int)term->regulation_cmd, (int)term->cycle_cnt,
+																															(int)(term->optical_sensor.optical_sensor_voltage*1000/4095)/100, (int)(term->optical_sensor.optical_sensor_voltage*1000/4095)%100,
+																																(int)(term->optical_sensor.time_stamp));
 //  sprintf(str, "%02d.%02d.%04d_%02d.%02d.%02d - time | %i - ptr | %i - index\n", RTC_DateTime.RTC_date, RTC_DateTime.RTC_month, RTC_DateTime.RTC_year, RTC_DateTime.RTC_hours, RTC_DateTime.RTC_minutes, RTC_DateTime.RTC_seconds, term->ptr, term->index);
 
 }
