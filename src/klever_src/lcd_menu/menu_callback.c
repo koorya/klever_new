@@ -591,7 +591,7 @@ void yellowBlueButtonClickHandler(void){
 
 void redYellowButtonClickHandler(void){
 	if(!PWM_Tension_state) { 
-		if (Now_Alarm!=8){ 
+		if (Now_Alarm!=8 && Now_Alarm!=9){
 			switch_mode_not_reg_state();
 			PWM_tension = 200/K_PWM_tension; 
 			PWM_Tension_state = 1; 
