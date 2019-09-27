@@ -5,7 +5,6 @@
 #include "../tension_math.h"
 
 
-extern volatile uint32_t optical_sensor_voltage;
 extern volatile float N;
 extern volatile float T;
 extern volatile uint32_t rope_tension_up_limit;
@@ -20,11 +19,6 @@ extern volatile uint32_t previous_rope_tension_bottom_limit;
 extern volatile uint16_t PWM_Speed_Backup;
 extern volatile uint8_t PWM_Speed_state;
 extern volatile uint16_t K_PWM_tension;
-
-extern volatile uint16_t angle_left;
-extern volatile uint16_t angle_right;
-extern volatile uint16_t previous_angle_left;
-extern volatile uint16_t previous_angle_right;
 
 extern volatile uint32_t PNP_count;
 extern volatile uint32_t motor_foult_counter;
@@ -549,8 +543,31 @@ void inc_tension_math_A(void){
 void dec_tension_math_A(void){
 
 }
-void show_tension_math_A(char * ret){
+void show_float(char * ret, float val){
+	/*
+	char str[100];
 
+	char *tmpSign = (val < 0) ? "-" : "";
+	float tmpVal = (val < 0) ? -val : val;
+
+	int tmpInt1 = tmpVal;                  // Get the integer (678).
+	float tmpFrac = tmpVal - tmpInt1;      // Get fraction (0.0123).
+	int tmpInt2 = trunc(tmpFrac * 10000);  // Turn into integer (123).
+
+	// Print as parts, note that you need 0-padding for fractional bit.
+
+	sprintf (str, "adc_read = %s%d.%04d\n", tmpSign, tmpInt1, tmpInt2);
+	*/
+}
+
+void show_tension_math_A(char * ret){
+//	optical_sensor_math_param.A;
+//	dtostrf();
+
+
+
+
+	sprintf(ret, "%f", 0.43f);
 }
 
 void inc_tension_math_B(void){

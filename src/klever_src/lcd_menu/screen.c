@@ -1,6 +1,6 @@
 #include "screen.h"
 #include "../GLCD.h"
-
+#include "float_input_window.h"
 
 
 
@@ -153,6 +153,15 @@ ITEM_OBJ * initObjNotchangeable(ITEM_OBJ * obj, void (*show) (char *)){
 	return initObj(obj, voidFunct, voidFunct, show, notchangeable);
 }
 
+ITEM_OBJ * initObjChangeableFloatNumb(ITEM_OBJ * obj, float * float_num){
+	obj->dec = voidFunct;
+	obj->inc = voidFunct;
+	obj->show = (void (*) (char *))NULL;
+	obj->type = chang_float_num;
+	obj->value = float_num;
+	obj->set = voidFunct;
+	return obj;
+}
 
 
 void initScreen(uint32_t interval, volatile ITEM_TYPE * curr_item){
@@ -190,13 +199,20 @@ char updateScreen(void){
 	volatile WINDOW_TYPE * curr_window = CURRENT_ITEM->parent_window;
 	volatile ITEM_TYPE * curr_item = curr_window->firs_item_ptr->prew_item;
 //	glcd_String(curr_window->name, 2, 0, FonON_InversOFF); //вывод названия окна
+	if (screen_state == SET_FLOAT_NUMBER){
+
+		return showFloatNumberWindow();
+	}
 	do{ 
 		curr_item = curr_item->next_item;
 		char *temp;
-		char temp_str[10] = "00";
+		char temp_str[20] = "00";
 		temp = temp_str;
 		if(curr_item->item_type == parameter){
-			curr_item->obj->show(temp);
+			if (curr_item->obj->show != NULL)
+				curr_item->obj->show(temp);
+			else if (curr_item->obj->type == chang_float_num)
+				sprintf(temp, "12345678e-10");
 		}else if(curr_item->item_type == submenu){
 			sprintf(temp, ">");
 		}else if(curr_item->item_type == labelitem){
@@ -233,9 +249,13 @@ char isSelectableItem(volatile ITEM_TYPE * item){
 		}else if(item->item_type == submenu){
 			return 1;
 		}else if(item->item_type == parameter){
-			if(item->obj)
-				if(item->obj->type == changeable)
+			if(item->obj){
+				if(item->obj->type == changeable){
 					return 1;
+				}else if (item->obj->type == chang_float_num){
+					return 1;
+				}
+			}
 		}
 		return 0;
 }
@@ -265,6 +285,9 @@ void screenSM(SCREEN_COMMAND_TYPE cmd){
 				if(CURRENT_ITEM->obj->type == changeable){
 					screen_state = MODIFY_VALUE;
 				}else if(CURRENT_ITEM->obj->type == notchangeable){
+				}else if(CURRENT_ITEM->obj->type == chang_float_num){
+					screen_state = SET_FLOAT_NUMBER;
+					initFloatNumberWindow(CURRENT_ITEM);
 				}
 			}else if(CURRENT_ITEM->item_type == submenu){
 				if(CURRENT_ITEM->child_window)
@@ -303,6 +326,9 @@ void screenSM(SCREEN_COMMAND_TYPE cmd){
 			screen_state = SELECT_ITEM;
 		}else if(cmd == SCR_COMM_defoult){
 		}
+	}else if(screen_state == SET_FLOAT_NUMBER){
+		if(floatNumberWindowSM(cmd) == SCR_COMM_back)
+			screen_state = SELECT_ITEM;
 	}
 }
 

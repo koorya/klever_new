@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "../tension_math.h"
 
 void menuInit(void){
 	static ITEM_OBJ obj[50];
@@ -59,7 +60,7 @@ void menuInit(void){
 				initItemParameter(&(item[item_index++]),"N т.уср. ", W(DALNOMER), initObjChangeable(&(obj[obj_index++]), inc_tension_math_N_avg, dec_tension_math_N_avg, show__tension_math_N_avg), 1, 4, line);//NEW clallback
 				initItemSubmenu(&(item[item_index++]), 	"Коэфф-ты", W(DALNOMER), W(L1COEFFICIENTS), 1, 5);
 					initItemLabel(&(item[item_index++]), "Коэффициенты L1", W(L1COEFFICIENTS), 0, 0);
-					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_A,  dec_tension_math_A,  show_tension_math_A), 1, 1, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.A)), 1, 1, line);//NEW clallback
 					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_B,  dec_tension_math_B,  show_tension_math_B), 1, 2, line);//NEW clallback
 					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_C,  dec_tension_math_C,  show_tension_math_C), 1, 3, line);//NEW clallback
 					startup_index = item_index;

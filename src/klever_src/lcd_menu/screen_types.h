@@ -1,3 +1,7 @@
+#ifndef KLEVER_SRC_LCD_MENU_SCREEN_TYPES_H_
+#define KLEVER_SRC_LCD_MENU_SCREEN_TYPES_H_
+
+
 #define W(A) (&(menu_window[A]))
 #define I(A) (&(item[A]))
 
@@ -31,7 +35,7 @@ typedef enum {
 }ITEM_ENUM;
 
 typedef enum{
-	SCR_COMM_up,
+	SCR_COMM_up,//screen command up (кнопка вверх)
 	SCR_COMM_down,
 	SCR_COMM_select,
 	SCR_COMM_back,
@@ -40,7 +44,8 @@ typedef enum{
 
 typedef enum{
 	SELECT_ITEM,
-	MODIFY_VALUE
+	MODIFY_VALUE,
+	SET_FLOAT_NUMBER
 } SCREEN_STATE_TYPE;
 
 typedef enum{
@@ -51,7 +56,8 @@ typedef enum{
 
 typedef enum{
 	changeable,
-	notchangeable
+	notchangeable,
+	chang_float_num
 } OBJ_TYPE_ENUM;
 
 typedef enum{
@@ -66,6 +72,7 @@ typedef struct ITEM_OBJ{
 	void (*inc) (void);
 	void (*show) (char *);
 	void (*set) (void);
+	float * value;
 	OBJ_TYPE_ENUM type;
 } ITEM_OBJ;
 
@@ -73,7 +80,6 @@ typedef struct ITEM_TYPE{
 	char *name;
 	ITEM_TYPE_ENUM item_type;
 	ITEM_OBJ * obj;
-	uint32_t value;//for delete
 	volatile struct ITEM_TYPE * next_item;
 	volatile struct ITEM_TYPE * prew_item;
 	volatile struct WINDOW_TYPE * parent_window;
@@ -90,6 +96,6 @@ typedef struct WINDOW_TYPE{
 	volatile struct WINDOW_TYPE * parent_window;
 } WINDOW_TYPE;
 
-
+#endif /* KLEVER_SRC_LCD_MENU_SCREEN_TYPES_H_ */
 
 
