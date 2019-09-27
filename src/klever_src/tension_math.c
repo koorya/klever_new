@@ -95,7 +95,40 @@ void updateTensionCalculation(void){
 	V_5 = V * V_4;
 	optical_sensor_math_param.L1 = round(100.0 * (A*V_5 - B*V_4 + C*V_3 - D*V_2 + E*V - F))/10;
 
+	double L1 = (double)optical_sensor_math_param.L1 / 10.0;
+	double L2 = (double)optical_sensor_math_param.L2 / 10.0;
+	double R_2 = (double)(optical_sensor_math_param.R*2) / 10.0;
+	double R_R_4 = R_2 * R_2;
+	double phi, xc, yc,xe, ye, xb, yb, ya, xd, yd, xa;
+	phi = -0.051*L1 + 1.5632;
+	xc = 260.065;
+	yc = 117.774;
+	xe = 64.038;
+	ye = -109.245;
+	xb = 701.0;
+	yb = 336.0;
+	ya = 116.0;
+	xd = 64.038 + 635.3 * cos(phi);
+	yd = -109.245 + 635.3 * sin(phi);
+	xa = 1473.0 - L2;
 
+	double al, ar;
+
+	double ydc = yd - yc;
+	double xdc = xd - xc;
+	double sqrt_xdc_ydc_4R = sqrt(xdc * xdc + ydc * ydc - R_R_4);
+	double fraq_r = (R_2 * ydc - xdc * sqrt_xdc_ydc_4R)/(-R_2 * xdc - ydc * sqrt_xdc_ydc_4R);
+	ar = asin(sqrt(1.0 + fraq_r * fraq_r)) - phi;
+
+	double yda = yd - ya;
+	double xda = xd - xa;
+	double sqrt_xda_yda_4R = sqrt(xda * xda + yda * yda - R_R_4);
+	double fraq_l = (R_2 * yda + xda * sqrt_xda_yda_4R)/(-R_2 * xda + yda * sqrt_xda_yda_4R);
+	al = asin(sqrt(1.0 + fraq_l * fraq_l)) + phi;
+
+
+	optical_sensor_math_param.angle_left = round((al*180.0/M_PI)*1000)/10;
+	optical_sensor_math_param.angle_right = round((ar*180.0/M_PI)*1000)/10;
 	update_flag = 0;
 }
 
