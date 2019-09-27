@@ -5,6 +5,7 @@ void menuInit(void){
 	static WINDOW_TYPE menu_window[20];
 	static ITEM_TYPE item[60];//56
 	static uint32_t item_index = 0;
+	uint32_t startup_index = 0;
 	static uint32_t obj_index = 0;
 	
 		initWindow(W(MAIN), "ÃËÀÂÍÎÅ", 0);
@@ -82,6 +83,6 @@ void menuInit(void){
 
 	initItemParameter(&(item[item_index++]), 	"×àñò. ", W(MAIN), initObjChangeable(&(obj[obj_index++]), inc_freq, dec_freq, show_freq), 0, 5, line);  
 
-	initScreen(200, &(item[0]));
+	initScreen(200, &(item[startup_index]));
 
 }
