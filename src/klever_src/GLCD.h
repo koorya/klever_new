@@ -10,14 +10,14 @@
 #define glcd_Width  128 // Ширина в пикселях 
 #define glcd_Height 64  // Высота в пикселях
 
-#define   Command         0                
-#define   Data            1
+#define   GLDC_Command         0
+#define   GLDC_Data            1
             
-#define   H 1        
-#define   V 0
+#define   GLDC_HORIZONTAL_LINE 1
+#define   GLDC_VERTICAL_LINE 0
 
-#define       R 0
-#define   not_R 1
+#define       GLDC_R 0
+#define   GLDC_not_R 1
 
 #define   FonOFF_InversOFF 0   // Рисует на пустом месте белым по синему, фон не тронут.
 #define   FonOFF_InversON  1   // Рисует пустым по закрашенному, фон не тронут.
