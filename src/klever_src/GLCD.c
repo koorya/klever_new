@@ -115,9 +115,9 @@ void GLCD_Init(void)
 	GPIOA->BSRR = ( GPIO_BSRR_BS0 );
 	glcd_Delay(2);
 	
-  glcd_Send(0x30, Command);    //8 бит, стандартный набор комманд.
-	glcd_Send(0x36, Command);    //Вкл. дисплей, курсор выключен, мигать выключено. 
-  glcd_Send(0x01, Command);    //Режим пониженного энергопотребления. 
+  glcd_Send(0x30, GLDC_Command);    //8 бит, стандартный набор комманд.
+	glcd_Send(0x36, GLDC_Command);    //Вкл. дисплей, курсор выключен, мигать выключено.
+  glcd_Send(0x01, GLDC_Command);    //Режим пониженного энергопотребления.
 	
 	glcd_Delay(150);
 }
@@ -126,7 +126,7 @@ void GLCD_Init(void)
 // Очистка графического дисплея (аппаратная)
 char glcd_Clear_HW(void)
 {
-  if(glcd_Send(0x01, Command)) return 1;
+  if(glcd_Send(0x01, GLDC_Command)) return 1;
   glcd_Delay(50);
   return 0;
 }
@@ -137,10 +137,10 @@ char glcd_Clear_FW(void)
 {
   for (char Loop_ST = 0; Loop_ST<32; Loop_ST++)
   { 
-    glcd_Send(0x80|Loop_ST, Command);
+    glcd_Send(0x80|Loop_ST, GLDC_Command);
     for (char Loop1 = 0; Loop1<64; Loop1++)
     { 
-      if(glcd_Send(0, Data))
+      if(glcd_Send(0, GLDC_Data))
     	  return 1;
     }
   }
@@ -167,17 +167,17 @@ char glcd_Show(void)
   {
     if (Stroki<32)                          // Если номер строки меньше 32-й (середины).
     { 
-    	err_cnt += glcd_Send(0x80|Stroki, Command);      // Ставим указатель в начало строки 0..31.
-    	err_cnt += glcd_Send(0x80, Command);
+    	err_cnt += glcd_Send(0x80|Stroki, GLDC_Command);      // Ставим указатель в начало строки 0..31.
+    	err_cnt += glcd_Send(0x80, GLDC_Command);
     }
     else 
     {
-    	err_cnt += glcd_Send((0x80|Stroki)-32, Command);     // Если 2-я половина экрана (строка 31..63.)
-    	err_cnt += glcd_Send(0x80+8, Command);            // То указатель на 8-ю ячейку строки.
+    	err_cnt += glcd_Send((0x80|Stroki)-32, GLDC_Command);     // Если 2-я половина экрана (строка 31..63.)
+    	err_cnt += glcd_Send(0x80+8, GLDC_Command);            // То указатель на 8-ю ячейку строки.
     }                                        // И от номера строки -32. Т.к. строк на самом деле всего 32, но они со странной адресацией.
     for (char Stolb = 0; Stolb<16; Stolb++)  // В каждой строке выдаем по 16 ячеек. 
     {      
-    	err_cnt += glcd_Send(glcd_buff[LoopDataLCD], Data);
+    	err_cnt += glcd_Send(glcd_buff[LoopDataLCD], GLDC_Data);
     	LoopDataLCD++;
     }
     if(err_cnt) return 1;
@@ -252,7 +252,7 @@ void glcd_Pixel(int16_t X, int16_t Y, uint8_t State)
 // Нарисовать линию в виртуальном буфере экрана
 void glcd_Line(uint8_t Napr, uint8_t IniLin, uint8_t Dl, uint8_t st)
 { 
-  if (Napr == H)                                   //Если линия горизонтальная, то.
+  if (Napr == GLDC_HORIZONTAL_LINE)                                   //Если линия горизонтальная, то.
   {//Для горизонтали: Horiz, по оси х слева пикселей, длинна вправо, по оси y константа.
     char LoopXn = 0;                                   //Пустых кусков. 
     while (IniLin>7) {IniLin=IniLin-8; LoopXn++;};     //Вычисляем, сколько пустых кусков до первого пикселя линии.      
