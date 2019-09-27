@@ -156,9 +156,14 @@ void show_optical_sensor_voltage(char * ret){
 }
 
 void show_cur_sensor(char * ret){
-//	sprintf(ret, "[%.02f]", N);
-	sprintf(ret, "%3d.%02d", ((int)(N*100))/100, ((int)(N*100))%100);
-//	sprintf(ret, "%3d.%1d", ((int)(N*100))/100, ((int)(N*10))%10);
+//	float N = 2655.345;//test
+	int whole = ((int)(N*100))/100;
+	if (whole<100)
+		sprintf(ret, "%2d.%02d", whole, ((int)(N*100))%100);
+	else if(whole < 1000)
+		sprintf(ret, "%3d.%01d", whole, ((int)(N*10))%10);
+	else
+		sprintf(ret, "ovld");
 }
 void show_cur_tension(char * ret){
 //	sprintf(ret, "[%.02f]", N);
