@@ -212,7 +212,7 @@ char updateScreen(void){
 			if (curr_item->obj->show != NULL)
 				curr_item->obj->show(temp);
 			else if (curr_item->obj->type == chang_float_num)
-				sprintf(temp, "12345678e-10");
+				show_float(temp, *(curr_item->obj->value));
 		}else if(curr_item->item_type == submenu){
 			sprintf(temp, ">");
 		}else if(curr_item->item_type == labelitem){

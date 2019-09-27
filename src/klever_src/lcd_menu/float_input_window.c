@@ -146,6 +146,7 @@ SCREEN_COMMAND_TYPE floatNumberWindowSM(SCREEN_COMMAND_TYPE cmd){
 			digit_index = 7;
 		}else if(cmd == SCR_COMM_select){
 			*(item_link->obj->value) = saved_value;
+			setDigitArrayByFloat(saved_value);
 		}else if(cmd == SCR_COMM_back){
 			*(item_link->obj->value) = saved_value;
 			return SCR_COMM_back;

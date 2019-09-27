@@ -83,29 +83,6 @@ void show__tension_math_N_avg(char * ret);
 
 void show_tension_math_L1(char * ret);
 
-void inc_tension_math_A(void);
-void dec_tension_math_A(void);
-void show_tension_math_A(char * ret);
-
-void inc_tension_math_B(void);
-void dec_tension_math_B(void);
-void show_tension_math_B(char * ret);
-
-void inc_tension_math_C(void);
-void dec_tension_math_C(void);
-void show_tension_math_C(char * ret);
-
-void inc_tension_math_D(void);
-void dec_tension_math_D(void);
-void show_tension_math_D(char * ret);
-
-void inc_tension_math_E(void);
-void dec_tension_math_E(void);
-void show_tension_math_E(char * ret);
-
-void inc_tension_math_F(void);
-void dec_tension_math_F(void);
-void show_tension_math_F(char * ret);
 
 
 

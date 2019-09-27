@@ -145,7 +145,7 @@ void show_tenzo_zero(char * ret){
 }
 
 void show_optical_sensor_voltage(char * ret){
-	sprintf(ret, "%2d.%02d", (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)/100, (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)%100);
+	sprintf(ret, "%2d.%02d", (int)(optical_sensor_math_param.V)/100, (int)(optical_sensor_math_param.V)%100);
 }
 
 void show_cur_sensor(char * ret){
@@ -503,106 +503,56 @@ void show_up_limit_brackets(char * ret){
 }
 
 void inc_tension_math_L2(void){
-
+	optical_sensor_math_param.L2 ++;
+	if (optical_sensor_math_param.L2 > 10000)
+		optical_sensor_math_param.L2 = 10000;
 }
 void dec_tension_math_L2(void){
-
+	optical_sensor_math_param.L2 --;
+	if (optical_sensor_math_param.L2 < 10)
+		optical_sensor_math_param.L2 = 10;
 }
 void show_tension_math_L2(char * ret){
-
+	sprintf(ret, "%3d.%1d", ((int)(optical_sensor_math_param.L2))/10%1000, ((int)(optical_sensor_math_param.L2))%10);
 }
 
 void inc_tension_math_R(void){
-
+	optical_sensor_math_param.R ++;
+	if (optical_sensor_math_param.R > 10000)
+		optical_sensor_math_param.R = 10000;
 }
 void dec_tension_math_R(void){
-
+	optical_sensor_math_param.R --;
+	if (optical_sensor_math_param.R < 10)
+		optical_sensor_math_param.R = 10;
 }
 void show_tension_math_R(char * ret){
-
+	sprintf(ret, "%3d.%1d", ((int)(optical_sensor_math_param.R))/10%1000, ((int)(optical_sensor_math_param.R))%10);
 }
 
 void inc_tension_math_N_avg(void){
-
+	if(optical_sensor_math_param.N_avg < 100){
+		optical_sensor_math_param.N_avg = 100;
+	}else if(optical_sensor_math_param.N_avg < 9900){
+		optical_sensor_math_param.N_avg += 100;
+	}
 }
 void dec_tension_math_N_avg(void){
-
+	if(optical_sensor_math_param.N_avg > 100){
+		optical_sensor_math_param.N_avg -= 100;
+	}else if(optical_sensor_math_param.N_avg > 10){
+		optical_sensor_math_param.N_avg -= 10;
+	}
 }
 void show__tension_math_N_avg(char * ret){
-
+	sprintf(ret, "%4d", (int)(optical_sensor_math_param.N_avg));
 }
 
 void show_tension_math_L1(char * ret){
-
+	sprintf(ret, "%3d.%1d", ((int)(optical_sensor_math_param.L1))/10%1000, ((int)(optical_sensor_math_param.L1))%10);
 }
 
 
-void inc_tension_math_A(void){
-
-}
-void dec_tension_math_A(void){
-
-}
-
-void show_tension_math_A(char * ret){
-//	optical_sensor_math_param.A;
-//	dtostrf();
-
-
-
-
-	sprintf(ret, "%f", 0.43f);
-}
-
-void inc_tension_math_B(void){
-
-}
-void dec_tension_math_B(void){
-
-}
-void show_tension_math_B(char * ret){
-
-}
-
-void inc_tension_math_C(void){
-
-}
-void dec_tension_math_C(void){
-
-}
-void show_tension_math_C(char * ret){
-
-}
-
-void inc_tension_math_D(void){
-
-}
-void dec_tension_math_D(void){
-
-}
-void show_tension_math_D(char * ret){
-
-}
-
-void inc_tension_math_E(void){
-
-}
-void dec_tension_math_E(void){
-
-}
-void show_tension_math_E(char * ret){
-
-}
-
-void inc_tension_math_F(void){
-
-}
-void dec_tension_math_F(void){
-
-}
-void show_tension_math_F(char * ret){
-
-}
 
 
 /*   <----KEY CALLBACKS---->   */

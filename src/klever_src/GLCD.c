@@ -172,7 +172,7 @@ void show_float(char * ret, float val){
 
 	// Print as parts, note that you need 0-padding for fractional bit.
 
-	sprintf (ret, "%s%d.%04d", tmpSign, tmpInt1, tmpInt2);
+	sprintf (ret, "%s%4d.%04d", tmpSign, tmpInt1, tmpInt2);
 }
 
 // Вывод виртуального буфера экрана на дисплей

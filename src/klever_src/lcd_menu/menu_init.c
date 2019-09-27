@@ -61,13 +61,13 @@ void menuInit(void){
 				initItemSubmenu(&(item[item_index++]), 	"Коэфф-ты", W(DALNOMER), W(L1COEFFICIENTS), 1, 5);
 					initItemLabel(&(item[item_index++]), "Коэффициенты L1", W(L1COEFFICIENTS), 0, 0);
 					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.A)), 1, 1, line);//NEW clallback
-					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_B,  dec_tension_math_B,  show_tension_math_B), 1, 2, line);//NEW clallback
-					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_C,  dec_tension_math_C,  show_tension_math_C), 1, 3, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.B)), 1, 2, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.C)), 1, 3, line);//NEW clallback
 					startup_index = item_index;
 
-					initItemParameter(&(item[item_index++]),"D ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_D,  dec_tension_math_D,  show_tension_math_D), 1, 4, line);//NEW clallback
-					initItemParameter(&(item[item_index++]),"E ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_E,  dec_tension_math_E,  show_tension_math_E), 1, 5, line);//NEW clallback
-					initItemParameter(&(item[item_index++]),"F ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_F,  dec_tension_math_F,  show_tension_math_F), 1, 6, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"D ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.D)), 1, 4, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"E ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.E)), 1, 5, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"F ", W(L1COEFFICIENTS), initObjChangeableFloatNumb(&(obj[obj_index++]),  &(optical_sensor_math_param.F)), 1, 6, line);//NEW clallback
 
 					initItemSubmenu(&(item[item_index++]), "<назад", W(L1COEFFICIENTS), W(DALNOMER), 0, 7);
 				initItemSubmenu(&(item[item_index++]), "<назад", W(DALNOMER), W(FORMULAS), 0, 7);
