@@ -816,7 +816,7 @@ int main(void)
 	{
 
 		display_error = updateScreen();
-
+		updateTensionCalculation();
 
 		if(I2C_update==1)
 		{

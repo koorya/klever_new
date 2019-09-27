@@ -21,6 +21,7 @@ volatile Optical_Sensor_Struct optical_sensor_data;
 volatile TensionMathParameters optical_sensor_math_param;
 volatile TensionMathParameters memory_optical_sensor_math_param;
 
+volatile uint8_t update_flag = 0;
 /*
  * 1 is equals
  * 0 isnt equals
@@ -77,6 +78,26 @@ void calculateTension(uint16_t A0_raw, volatile TensionMathParameters * math_par
 	if(T < 0) T = 0;
 
 }
+void updateTensionCalculation(void){
+	if(update_flag == 0)
+		return;
+	double A, B, C, D, E, F, V, V_2, V_3, V_4, V_5;
+	A = optical_sensor_math_param.A;
+	B = optical_sensor_math_param.B;
+	C = optical_sensor_math_param.C;
+	D = optical_sensor_math_param.D;
+	E = optical_sensor_math_param.E;
+	F = optical_sensor_math_param.F;
+	V = (double)(optical_sensor_math_param.V)/100.0;
+	V_2 = V * V;
+	V_3 = V * V_2;
+	V_4 = V * V_3;
+	V_5 = V * V_4;
+	optical_sensor_math_param.L1 = round(100.0 * (A*V_5 - B*V_4 + C*V_3 - D*V_2 + E*V - F))/10;
+
+
+	update_flag = 0;
+}
 
 void calculateOpticalSensorVoltage(uint16_t Ax_raw){
 	static uint8_t is_calcilation_not_first = 1;
@@ -97,20 +118,7 @@ void calculateOpticalSensorVoltage(uint16_t Ax_raw){
 		is_calcilation_not_first = 0;
 
 		optical_sensor_math_param.V =  (optical_sensor_data.optical_sensor_voltage*1000)/4095;
-		double A, B, C, D, E, F, V, V_2, V_3, V_4, V_5;
-		A = optical_sensor_math_param.A;
-		B = optical_sensor_math_param.B;
-		C = optical_sensor_math_param.C;
-		D = optical_sensor_math_param.D;
-		E = optical_sensor_math_param.E;
-		F = optical_sensor_math_param.F;
-		V = (double)(optical_sensor_math_param.V)/100.0;
-		V_2 = V * V;
-		V_3 = V * V_2;
-		V_4 = V * V_3;
-		V_5 = V * V_4;
-
-		optical_sensor_math_param.L1 = round(100.0 * (A*V_5 - B*V_4 + C*V_3 - D*V_2 + E*V - F))/10;
+		update_flag = 1;
 	}
 	if (is_calcilation_not_first == 1){
 		optical_sensor_data.optical_sensor_voltage = Ax_raw;

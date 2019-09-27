@@ -35,5 +35,5 @@ extern volatile TensionMathParameters memory_optical_sensor_math_param;
 uint8_t compareTensionMathParam(volatile TensionMathParameters* a, volatile TensionMathParameters * b);
 void calculateTension(uint16_t A0_raw, volatile TensionMathParameters * math_param); //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
 void calculateOpticalSensorVoltage(uint16_t Ax_raw);
-
+void updateTensionCalculation(void);
 #endif /* KLEVER_SRC_TENSION_MATH_H_ */
