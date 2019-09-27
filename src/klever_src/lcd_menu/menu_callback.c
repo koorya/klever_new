@@ -201,16 +201,62 @@ void switch_save_state(void){
 	previous_rope_tension_up_limit = rope_tension_up_limit;
 	previous_rope_tension_bottom_limit = rope_tension_bottom_limit;
 	
-	memory_optical_sensor_math_param.L2 = optical_sensor_math_param.L2;
-
 	BDCR_UnLock();
 	BDCR_Write_Word(BKP_DR4, previous_rope_tention_target);
 	BDCR_Write_Word(BKP_DR5, previous_PWM_Speed);
 	BDCR_Write_Word(BKP_DR6, previous_rope_tension_up_limit);		
 	BDCR_Write_Word(BKP_DR7, previous_rope_tension_bottom_limit);		
+
+
+
+	//здесь опасно выбирать регистры, т.к. они используются по всему проекту. Например в файле калбеков я использовал один для записи нуля тензодатчика BKP_DR10
+	memory_optical_sensor_math_param = optical_sensor_math_param;
+
 	BDCR_Write_Word(BKP_DR8, memory_optical_sensor_math_param.L2);
-//	BDCR_Write_Word(BKP_DR9, previous_angle_right);
-	//здесь опасно выбирать регистры, т.к. они используются по всему проекту. Например в файле калбеков я использовал один для записи нуля тензодатчика
+	BDCR_Write_Word(BKP_DR9, memory_optical_sensor_math_param.R);
+
+
+	uint16_t int1, int2;
+	uint32_t int32;
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.A);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR11, int2);
+	BDCR_Write_Word(BKP_DR12, int1);
+
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.B);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR13, int2);
+	BDCR_Write_Word(BKP_DR14, int1);
+
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.C);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR15, int2);
+	BDCR_Write_Word(BKP_DR16, int1);
+
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.D);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR17, int2);
+	BDCR_Write_Word(BKP_DR18, int1);
+
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.E);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR19, int2);
+	BDCR_Write_Word(BKP_DR20, int1);
+
+	int32 = *(uint32_t*)&(memory_optical_sensor_math_param.F);
+	int1 = int32 & 0xffff;
+	int2 = int32>>16;
+	BDCR_Write_Word(BKP_DR21, int2);
+	BDCR_Write_Word(BKP_DR22, int1);
+
+	BDCR_Write_Word(BKP_DR23, memory_optical_sensor_math_param.N_avg);
+
+
 	BDCR_Lock();
 }
 

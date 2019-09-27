@@ -707,17 +707,43 @@ void Read_BDCR(void)
 	previous_PWM_Speed = BDCR_Read_Word(BKP_DR5);
 	PWM_Speed_Backup = previous_PWM_Speed;
 
-	optical_sensor_math_param.L2 = BDCR_Read_Word(BKP_DR8);
-	memory_optical_sensor_math_param.L2 = optical_sensor_math_param.L2;
+	memory_optical_sensor_math_param.L2 = BDCR_Read_Word(BKP_DR8);
+//	memory_optical_sensor_math_param.L2 = optical_sensor_math_param.L2;
 
-	memory_optical_sensor_math_param.A = 0.1308;
-	memory_optical_sensor_math_param.B = 3.5751;
-	memory_optical_sensor_math_param.C = 37.1262;
-	memory_optical_sensor_math_param.D = 181.1357;
-	memory_optical_sensor_math_param.E = 390.734;
-	memory_optical_sensor_math_param.F = 173.0224;
-	memory_optical_sensor_math_param.N_avg = 1500;
-	memory_optical_sensor_math_param.R = 3000;
+
+
+	memory_optical_sensor_math_param.R = BDCR_Read_Word(BKP_DR9);
+	uint32_t int_value;
+	int_value = BDCR_Read_Word(BKP_DR11)<<16;
+	int_value += BDCR_Read_Word(BKP_DR12);
+	memory_optical_sensor_math_param.A = *(float*) &int_value;
+	int_value = BDCR_Read_Word(BKP_DR13)<<16;
+	int_value += BDCR_Read_Word(BKP_DR14);
+	memory_optical_sensor_math_param.B = *(float*) &int_value;
+	int_value = BDCR_Read_Word(BKP_DR15)<<16;
+	int_value += BDCR_Read_Word(BKP_DR16);
+	memory_optical_sensor_math_param.C = *(float*) &int_value;
+	int_value = BDCR_Read_Word(BKP_DR17)<<16;
+	int_value += BDCR_Read_Word(BKP_DR18);
+	memory_optical_sensor_math_param.D = *(float*) &int_value;
+	int_value = BDCR_Read_Word(BKP_DR19)<<16;
+	int_value += BDCR_Read_Word(BKP_DR20);
+	memory_optical_sensor_math_param.E = *(float*) &int_value;
+	int_value = BDCR_Read_Word(BKP_DR21)<<16;
+	int_value += BDCR_Read_Word(BKP_DR22);
+	memory_optical_sensor_math_param.F = *(float*) &int_value;
+
+	memory_optical_sensor_math_param.N_avg = BDCR_Read_Word(BKP_DR23);
+
+
+//	memory_optical_sensor_math_param.A = 0.1308;
+//	memory_optical_sensor_math_param.B = 3.5751;
+//	memory_optical_sensor_math_param.C = 37.1262;
+//	memory_optical_sensor_math_param.D = 181.1357;
+//	memory_optical_sensor_math_param.E = 390.734;
+//	memory_optical_sensor_math_param.F = 173.0224;
+//	memory_optical_sensor_math_param.N_avg = 1500;
+//	memory_optical_sensor_math_param.R = 3000;
 
 	optical_sensor_math_param = memory_optical_sensor_math_param;
 
