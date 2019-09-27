@@ -578,7 +578,7 @@ void SysTick_Handler(void)
 	calculateOpticalSensorVoltage(A1_raw);
 	A1_raw = 0;
 
-	calculateTension(A0_raw, angle_left, angle_right);
+	calculateTension(A0_raw, &optical_sensor_math_param);
 
 	////////////////////////////////
 	if (!log_buff_delay) {
@@ -707,11 +707,19 @@ void Read_BDCR(void)
 	previous_PWM_Speed = BDCR_Read_Word(BKP_DR5);
 	PWM_Speed_Backup = previous_PWM_Speed;
 
-	previous_angle_left = BDCR_Read_Word(BKP_DR8);
-	angle_left = previous_angle_left;
-	previous_angle_right = BDCR_Read_Word(BKP_DR9);
-	angle_right = previous_angle_right;
+	optical_sensor_math_param.L2 = BDCR_Read_Word(BKP_DR8);
+	memory_optical_sensor_math_param.L2 = optical_sensor_math_param.L2;
 
+	memory_optical_sensor_math_param.A = 0.1308;
+	memory_optical_sensor_math_param.B = 3.5751;
+	memory_optical_sensor_math_param.C = 37.1262;
+	memory_optical_sensor_math_param.D = 181.1357;
+	memory_optical_sensor_math_param.E = 390.734;
+	memory_optical_sensor_math_param.F = 173.0224;
+	memory_optical_sensor_math_param.N_avg = 1500;
+	memory_optical_sensor_math_param.R = 3000;
+
+	optical_sensor_math_param = memory_optical_sensor_math_param;
 
 	uint16_t tenzo_zero_value_uint16 = BDCR_Read_Word(BKP_DR10);
 	tenzo_zero_value = tenzo_zero_value_uint16;

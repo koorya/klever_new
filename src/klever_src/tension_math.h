@@ -15,13 +15,25 @@ typedef struct {
 	uint32_t time_stamp; //в миллисекундах
 } Optical_Sensor_Struct;
 
-extern volatile uint16_t angle_left;
-extern volatile uint16_t angle_right;
-extern volatile uint16_t previous_angle_left;
-extern volatile uint16_t previous_angle_right;
+typedef struct {
+	uint16_t L2; //расстояние в десятых миллиметра расположение шкива на задней раме. если 204.3 мм, то L2 = 2043
+	uint16_t L1; //пересчитанное из показаний дальномера расстояние между подвижной рамой и зеленой
+	uint16_t V; //пересчитанное из показаний дальномера расстояние между подвижной рамой и зеленой
+	uint16_t N_avg; //количество точек усреднения
+	uint16_t angle_left;//левый угол, рассчитывается программно
+	uint16_t angle_right;//правый угол рассчитывается программно
+
+	uint16_t R;//расстояние от центра шкива до центра каната
+	float A, B, C, D, E, F;	//коэффициенты 7 значущих цифр
+} TensionMathParameters;
+
 extern volatile Optical_Sensor_Struct optical_sensor_data;
 
-void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r); //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
+extern volatile TensionMathParameters optical_sensor_math_param;
+extern volatile TensionMathParameters memory_optical_sensor_math_param;
+
+uint8_t compareTensionMathParam(volatile TensionMathParameters* a, volatile TensionMathParameters * b);
+void calculateTension(uint16_t A0_raw, volatile TensionMathParameters * math_param); //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
 void calculateOpticalSensorVoltage(uint16_t Ax_raw);
 
 #endif /* KLEVER_SRC_TENSION_MATH_H_ */

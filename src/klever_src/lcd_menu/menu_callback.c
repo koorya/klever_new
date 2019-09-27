@@ -107,8 +107,7 @@ void show_interface_error_state(char * ret){
 
 uint16_t isSaved(){
 	if (
-			(previous_angle_left 				!=  angle_left) 			||
-			(previous_angle_right 				!=  angle_right) 			||
+			!compareTensionMathParam(&optical_sensor_math_param, &memory_optical_sensor_math_param)||
 			(previous_rope_tention_target 		!= rope_tention_target) 	||
 			(previous_PWM_Speed 				!= PWM_Speed_Backup) 		||
 			(previous_rope_tension_up_limit 	!= rope_tension_up_limit)	||
@@ -207,16 +206,16 @@ void switch_save_state(void){
 	previous_PWM_Speed = PWM_Speed_Backup;
 	previous_rope_tension_up_limit = rope_tension_up_limit;
 	previous_rope_tension_bottom_limit = rope_tension_bottom_limit;
-	previous_angle_left = angle_left;
-	previous_angle_right = angle_right;
 	
+	memory_optical_sensor_math_param.L2 = optical_sensor_math_param.L2;
+
 	BDCR_UnLock();
 	BDCR_Write_Word(BKP_DR4, previous_rope_tention_target);
 	BDCR_Write_Word(BKP_DR5, previous_PWM_Speed);
 	BDCR_Write_Word(BKP_DR6, previous_rope_tension_up_limit);		
 	BDCR_Write_Word(BKP_DR7, previous_rope_tension_bottom_limit);		
-	BDCR_Write_Word(BKP_DR8, previous_angle_left);
-	BDCR_Write_Word(BKP_DR9, previous_angle_right);
+	BDCR_Write_Word(BKP_DR8, memory_optical_sensor_math_param.L2);
+//	BDCR_Write_Word(BKP_DR9, previous_angle_right);
 	//здесь опасно выбирать регистры, т.к. они используются по всему проекту. Например в файле калбеков я использовал один для записи нуля тензодатчика
 	BDCR_Lock();
 }
@@ -406,30 +405,6 @@ void show_mode_pid_value(char * ret){
 }
 
 
-void inc_angle_left(void){
-	angle_left++;
-	if(angle_left + angle_right>= 1800)
-		angle_left--;
-}
-void dec_angle_left(void){
-	if(angle_left>1)
-		angle_left--;
-}
-void show_angle_left(char * ret){
-	sprintf(ret, "%2d.%1d", angle_left/10, angle_left%10);
-}
-void inc_angle_right(void){
-	angle_right++;
-	if(angle_left + angle_right>= 1800)
-		angle_right--;
-}
-void dec_angle_right(void){
-	if(angle_right>1)
-		angle_right--;
-}
-void show_angle_right(char * ret){
-	sprintf(ret, "%2d.%1d", angle_right/10, angle_right%10);
-}
 
 void switch_mode_puls_state(void){
 		if(CURRENT_REG_MODE == PULS_REG){
@@ -531,6 +506,101 @@ void show_rope_tension_up_limit(char * ret){
 }	
 void show_up_limit_brackets(char * ret){
 	sprintf(ret, "[%3d]", (int)(rope_tension_up_limit/1));
+}
+
+void inc_tension_math_L2(void){
+
+}
+void dec_tension_math_L2(void){
+
+}
+void show_tension_math_L2(char * ret){
+
+}
+
+void inc_tension_math_R(void){
+
+}
+void dec_tension_math_R(void){
+
+}
+void show_tension_math_R(char * ret){
+
+}
+
+void inc_tension_math_N_avg(void){
+
+}
+void dec_tension_math_N_avg(void){
+
+}
+void show__tension_math_N_avg(char * ret){
+
+}
+
+void show_tension_math_L1(char * ret){
+
+}
+
+
+void inc_tension_math_A(void){
+
+}
+void dec_tension_math_A(void){
+
+}
+void show_tension_math_A(char * ret){
+
+}
+
+void inc_tension_math_B(void){
+
+}
+void dec_tension_math_B(void){
+
+}
+void show_tension_math_B(char * ret){
+
+}
+
+void inc_tension_math_C(void){
+
+}
+void dec_tension_math_C(void){
+
+}
+void show_tension_math_C(char * ret){
+
+}
+
+void inc_tension_math_D(void){
+
+}
+void dec_tension_math_D(void){
+
+}
+void show_tension_math_D(char * ret){
+
+}
+
+void inc_tension_math_E(void){
+
+}
+void dec_tension_math_E(void){
+
+}
+void show_tension_math_E(char * ret){
+
+}
+
+void inc_tension_math_F(void){
+
+}
+void dec_tension_math_F(void){
+
+}
+void show_tension_math_F(char * ret){
+
 }
 
 

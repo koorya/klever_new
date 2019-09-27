@@ -16,13 +16,26 @@ extern volatile float T;
 //volatile uint8_t K_a0 = 25;
 volatile uint8_t K_a0 = 10;
 
-volatile uint16_t angle_left = 200;
-volatile uint16_t angle_right = 200;
-volatile uint16_t previous_angle_left;
-volatile uint16_t previous_angle_right;
-volatile volatile Optical_Sensor_Struct optical_sensor_data;
+volatile Optical_Sensor_Struct optical_sensor_data;
 
-void calculateTension(uint16_t A0_raw, uint16_t a_l, uint16_t a_r){ //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
+volatile TensionMathParameters optical_sensor_math_param;
+volatile TensionMathParameters memory_optical_sensor_math_param;
+
+/*
+ * 1 is equals
+ * 0 isnt equals
+ */
+uint8_t compareTensionMathParam(volatile TensionMathParameters* a, volatile TensionMathParameters * b){
+	if (a->L2 != b->L2)
+		return 0;
+	return 1;
+}
+
+
+void calculateTension(uint16_t A0_raw, volatile TensionMathParameters * math_param){ //A0_raw - Значение АЦП (0-4095), a_l_degr, a_r_degr - углы в градусах * 10
+	uint16_t a_l = math_param->angle_left;
+	uint16_t a_r = math_param->angle_right;
+
 	N = (K_a0 * 3.3 * A0_raw * 3.7243053 ) / 4095; //
 	N -= tenzo_zero_value;
 //	N = (K_a0 * 3.3 * A0_raw * 3.7 ) / 4095;

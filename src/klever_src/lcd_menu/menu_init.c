@@ -49,24 +49,24 @@ void menuInit(void){
 		initItemLabel(&(item[item_index++]), "Меню режимов", W(MODE), 0, 0);
 		initItemSubmenu(&(item[item_index++]), 		"Формулы  ", W(MODE), W(FORMULAS), 1, 1);
 			initItemLabel(&(item[item_index++]), "Формулы", W(FORMULAS), 0, 0);
-			initItemParameter(&(item[item_index++]),"L2   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_left, dec_angle_left, show_angle_left), 1, 2, line);//NEW
-			initItemParameter(&(item[item_index++]),"R    ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 3, line);//NEW
+			initItemParameter(&(item[item_index++]),"L2   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_L2, dec_tension_math_L2, show_tension_math_L2), 1, 2, line);//NEW clallback
+			initItemParameter(&(item[item_index++]),"R    ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_R,  dec_tension_math_R,  show_tension_math_R), 1, 3, line);//NEW clallback
 			initItemParameter(&(item[item_index++]),"Z тд ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);
 			initItemSubmenu(&(item[item_index++]), 		"Дальном", W(FORMULAS), W(DALNOMER), 1, 5);
 				initItemLabel(&(item[item_index++]), "Дальномер", W(DALNOMER), 0, 0);
 				initItemParameter(&(item[item_index++]),"Усред, В ", W(DALNOMER), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 2, line);
-				initItemParameter(&(item[item_index++]),"Усред L1 ", W(DALNOMER), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 3, line);//NEW
-				initItemParameter(&(item[item_index++]),"N т.уср. ", W(DALNOMER), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);//NEW
+				initItemParameter(&(item[item_index++]),"Усред L1 ", W(DALNOMER), initObjNotchangeable(&(obj[obj_index++]), show_tension_math_L1), 1, 3, line);//NEW clallback
+				initItemParameter(&(item[item_index++]),"N т.уср. ", W(DALNOMER), initObjChangeable(&(obj[obj_index++]), inc_tension_math_N_avg, dec_tension_math_N_avg, show__tension_math_N_avg), 1, 4, line);//NEW clallback
 				initItemSubmenu(&(item[item_index++]), 	"Коэфф-ты", W(DALNOMER), W(L1COEFFICIENTS), 1, 5);
 					initItemLabel(&(item[item_index++]), "Коэффициенты L1", W(L1COEFFICIENTS), 0, 0);
-					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 1, line);//NEW
-					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 2, line);//NEW
-					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 3, line);//NEW
+					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_A,  dec_tension_math_A,  show_tension_math_A), 1, 1, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_B,  dec_tension_math_B,  show_tension_math_B), 1, 2, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_C,  dec_tension_math_C,  show_tension_math_C), 1, 3, line);//NEW clallback
 					startup_index = item_index;
 
-					initItemParameter(&(item[item_index++]),"D ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);//NEW
-					initItemParameter(&(item[item_index++]),"E ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 5, line);//NEW
-					initItemParameter(&(item[item_index++]),"F ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 6, line);//NEW
+					initItemParameter(&(item[item_index++]),"D ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_D,  dec_tension_math_D,  show_tension_math_D), 1, 4, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"E ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_E,  dec_tension_math_E,  show_tension_math_E), 1, 5, line);//NEW clallback
+					initItemParameter(&(item[item_index++]),"F ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tension_math_F,  dec_tension_math_F,  show_tension_math_F), 1, 6, line);//NEW clallback
 
 					initItemSubmenu(&(item[item_index++]), "<назад", W(L1COEFFICIENTS), W(DALNOMER), 0, 7);
 				initItemSubmenu(&(item[item_index++]), "<назад", W(DALNOMER), W(FORMULAS), 0, 7);

@@ -7,71 +7,106 @@
 #define DEF_MAX_TENSION_VALUE 150 //rope_tension_up_limit
 
 
-extern void show_yes_no(char * ret, char param);
-extern void show_status(char * ret);
-extern void show_alarm(char * ret);
-extern void show_resurs(char * ret);
-extern void show_tenzo(char * ret);
-extern void show_log_state(char * ret);
-extern void show_interface_error_state(char * ret);
-extern void show_save_state(char * ret);
-extern void show_up_limit_brackets(char * ret);
-extern void save_tenzo_zero(void);
-extern void inc_tenzo_zero(void);
-extern void dec_tenzo_zero(void);
-extern void show_tenzo_zero(char * ret);
-extern void show_optical_sensor_voltage(char * ret);
-extern void show_cur_sensor(char * ret);
-extern void show_cur_tension(char * ret);
-extern void show_mode(char * ret);
-extern void switch_log_state(void);
-extern void show_log_state_yes_no(char * ret);
-extern void switch_save_state(void);
-extern void show_save_state_yes_no(char * ret);	
-extern void switch_default_state(void);
-extern void show_default_state(char * ret);
-extern void switch_mode_not_reg_state(void);
-extern void show_mode_not_reg_state(char * ret);
-extern void switch_mode_lazy_pid_state(void);
-extern void show_mode_lazy_pid_state(char * ret);
-extern void inc_mode_lazy_pid_period(void);
-extern void dec_mode_lazy_pid_period(void);
-extern void show_mode_lazy_pid_period(char * ret);
-extern void inc_mode_lazy_pid_err(void);
-extern void dec_mode_lazy_pid_err(void);
-extern void show_mode_lazy_pid_err(char * ret);
-extern void inc_mode_lazy_pid_value(void);
-extern void dec_mode_lazy_pid_value(void);
-extern void show_mode_lazy_pid_value(char * ret);
-extern void switch_mode_pid_state(void);
-extern void show_mode_pid_state(char * ret);
-extern void inc_mode_pid_value(void);
-extern void dec_mode_pid_value(void);
-extern void show_mode_pid_value(char * ret);
-extern void switch_mode_puls_state(void);
-extern void show_mode_puls_state(char * ret);
-extern void inc_mode_puls_from_value(void);
-extern void dec_mode_puls_from_value(void);
-extern void show_mode_puls_from_value(char * ret);
-extern void inc_mode_puls_to_value(void);
-extern void dec_mode_puls_to_value(void);
-extern void show_mode_puls_to_value(char * ret);
-extern void inc_mode_puls_period_value(void);
-extern void dec_mode_puls_period_value(void);
-extern void show_mode_puls_period_value(char * ret);
-extern void inc_freq(void);
-extern void dec_freq(void);
-extern void show_freq(char * ret);
-extern void inc_rope_tension_bottom_limit(void); 
-extern void dec_rope_tension_bottom_limit(void);
-extern void show_rope_tension_bottom_limit(char * ret);	
-extern void inc_rope_tension_up_limit(void); 
-extern void dec_rope_tension_up_limit(void);
-extern void show_rope_tension_up_limit(char * ret);	
+void show_yes_no(char * ret, char param);
+void show_status(char * ret);
+void show_alarm(char * ret);
+void show_resurs(char * ret);
+void show_tenzo(char * ret);
+void show_log_state(char * ret);
+void show_interface_error_state(char * ret);
+void show_save_state(char * ret);
+void show_up_limit_brackets(char * ret);
+void save_tenzo_zero(void);
+void inc_tenzo_zero(void);
+void dec_tenzo_zero(void);
+void show_tenzo_zero(char * ret);
+void show_optical_sensor_voltage(char * ret);
+void show_cur_sensor(char * ret);
+void show_cur_tension(char * ret);
+void show_mode(char * ret);
+void switch_log_state(void);
+void show_log_state_yes_no(char * ret);
+void switch_save_state(void);
+void show_save_state_yes_no(char * ret);
+void switch_default_state(void);
+void show_default_state(char * ret);
+void switch_mode_not_reg_state(void);
+void show_mode_not_reg_state(char * ret);
+void switch_mode_lazy_pid_state(void);
+void show_mode_lazy_pid_state(char * ret);
+void inc_mode_lazy_pid_period(void);
+void dec_mode_lazy_pid_period(void);
+void show_mode_lazy_pid_period(char * ret);
+void inc_mode_lazy_pid_err(void);
+void dec_mode_lazy_pid_err(void);
+void show_mode_lazy_pid_err(char * ret);
+void inc_mode_lazy_pid_value(void);
+void dec_mode_lazy_pid_value(void);
+void show_mode_lazy_pid_value(char * ret);
+void switch_mode_pid_state(void);
+void show_mode_pid_state(char * ret);
+void inc_mode_pid_value(void);
+void dec_mode_pid_value(void);
+void show_mode_pid_value(char * ret);
+void switch_mode_puls_state(void);
+void show_mode_puls_state(char * ret);
+void inc_mode_puls_from_value(void);
+void dec_mode_puls_from_value(void);
+void show_mode_puls_from_value(char * ret);
+void inc_mode_puls_to_value(void);
+void dec_mode_puls_to_value(void);
+void show_mode_puls_to_value(char * ret);
+void inc_mode_puls_period_value(void);
+void dec_mode_puls_period_value(void);
+void show_mode_puls_period_value(char * ret);
+void inc_freq(void);
+void dec_freq(void);
+void show_freq(char * ret);
+void inc_rope_tension_bottom_limit(void);
+void dec_rope_tension_bottom_limit(void);
+void show_rope_tension_bottom_limit(char * ret);
+void inc_rope_tension_up_limit(void);
+void dec_rope_tension_up_limit(void);
+void show_rope_tension_up_limit(char * ret);
 
-extern void inc_angle_left(void);
-extern void dec_angle_left(void);
-extern void show_angle_left(char * ret);
-extern void inc_angle_right(void);
-extern void dec_angle_right(void);
-extern void show_angle_right(char * ret);
+void inc_tension_math_L2(void);
+void dec_tension_math_L2(void);
+void show_tension_math_L2(char * ret);
+
+void inc_tension_math_R(void);
+void dec_tension_math_R(void);
+void show_tension_math_R(char * ret);
+
+void inc_tension_math_N_avg(void);
+void dec_tension_math_N_avg(void);
+void show__tension_math_N_avg(char * ret);
+
+void show_tension_math_L1(char * ret);
+
+void inc_tension_math_A(void);
+void dec_tension_math_A(void);
+void show_tension_math_A(char * ret);
+
+void inc_tension_math_B(void);
+void dec_tension_math_B(void);
+void show_tension_math_B(char * ret);
+
+void inc_tension_math_C(void);
+void dec_tension_math_C(void);
+void show_tension_math_C(char * ret);
+
+void inc_tension_math_D(void);
+void dec_tension_math_D(void);
+void show_tension_math_D(char * ret);
+
+void inc_tension_math_E(void);
+void dec_tension_math_E(void);
+void show_tension_math_E(char * ret);
+
+void inc_tension_math_F(void);
+void dec_tension_math_F(void);
+void show_tension_math_F(char * ret);
+
+
+
+
