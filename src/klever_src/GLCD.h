@@ -59,6 +59,7 @@ char glcd_Show(void);
 // Отображает символ по координатам Х(столбец) и Y(строка), стиль отображения
 void glcd_Char(uint8_t Symbol, uint8_t X, uint8_t Y, uint8_t type_font);
 
+void show_float(char * ret, float val);
 // Отправка строки с своим шрифтом по заданным координатам.
 void glcd_String(char String[], uint8_t X, uint8_t Y, uint8_t type_font);
 

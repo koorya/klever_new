@@ -1,6 +1,8 @@
 #include "stm32f10x.h"
 #include "GLCD.h"
 #include "font8x8.h"
+#include <math.h>
+#include <stdio.h>
 
 //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -157,6 +159,21 @@ void glcd_Buffer_Clear(void)
   }
 }
 //
+
+
+void show_float(char * ret, float val){
+
+	char *tmpSign = (val < 0) ? "-" : "";
+	float tmpVal = (val < 0) ? -val : val;
+
+	int tmpInt1 = tmpVal;                  // Get the integer (678).
+	float tmpFrac = tmpVal - tmpInt1;      // Get fraction (0.0123).
+	int tmpInt2 = round(tmpFrac * 10000);  // Turn into integer (123).
+
+	// Print as parts, note that you need 0-padding for fractional bit.
+
+	sprintf (ret, "%s%d.%04d", tmpSign, tmpInt1, tmpInt2);
+}
 
 // Вывод виртуального буфера экрана на дисплей
 char glcd_Show(void)
