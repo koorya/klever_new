@@ -9,7 +9,9 @@ typedef enum{
 	LAZY_PID_MODE,
 	LIMITS,
 	DATA_MANAGE,
-	FORMULAS
+	FORMULAS,
+	DALNOMER,
+	L1COEFFICIENTS
 } WINDOW_ENUM;
 
 typedef enum {

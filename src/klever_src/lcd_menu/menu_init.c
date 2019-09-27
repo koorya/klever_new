@@ -1,9 +1,9 @@
 #include "screen.h"
 
 void menuInit(void){
-	static ITEM_OBJ obj[37];
+	static ITEM_OBJ obj[50];
 	static WINDOW_TYPE menu_window[20];
-	static ITEM_TYPE item[60];//56
+	static ITEM_TYPE item[80];//56
 	static uint32_t item_index = 0;
 	uint32_t startup_index = 0;
 	static uint32_t obj_index = 0;
@@ -13,6 +13,8 @@ void menuInit(void){
 		initWindow(W(LIMITS), "меню лимитов", W(MAIN));
 		initWindow(W(MODE), "меню режимов", W(MAIN));	
 			initWindow(W(FORMULAS), "углы", W(MODE));
+				initWindow(W(DALNOMER), "Дальномер", W(FORMULAS));
+					initWindow(W(L1COEFFICIENTS), "коэффициенты дальномера", W(DALNOMER));
 			initWindow(W(PID_MODE), "режим ПИД", W(MODE));
 			initWindow(W(PULS_MODE), "режим пульсации", W(MODE));
 			initWindow(W(LAZY_PID_MODE), "режим ленивый пид", W(MODE));
@@ -47,12 +49,27 @@ void menuInit(void){
 		initItemLabel(&(item[item_index++]), "Меню режимов", W(MODE), 0, 0);
 		initItemSubmenu(&(item[item_index++]), 		"Формулы  ", W(MODE), W(FORMULAS), 1, 1);
 			initItemLabel(&(item[item_index++]), "Формулы", W(FORMULAS), 0, 0);
-			initItemParameter(&(item[item_index++]),"L2   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_left, dec_angle_left, show_angle_left), 1, 2, line);
-			initItemParameter(&(item[item_index++]),"R    ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 3, line);
+			initItemParameter(&(item[item_index++]),"L2   ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_left, dec_angle_left, show_angle_left), 1, 2, line);//NEW
+			initItemParameter(&(item[item_index++]),"R    ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_angle_right, dec_angle_right, show_angle_right), 1, 3, line);//NEW
 			initItemParameter(&(item[item_index++]),"Z тд ", W(FORMULAS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);
-			startup_index = item_index;
-			initItemSubmenu(&(item[item_index++]), 		"Дальном", W(FORMULAS), W(FORMULAS), 1, 5);
-				//initItemParameter(&(item[item_index++]),"Дальном  ", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 5, line);
+			initItemSubmenu(&(item[item_index++]), 		"Дальном", W(FORMULAS), W(DALNOMER), 1, 5);
+				initItemLabel(&(item[item_index++]), "Дальномер", W(DALNOMER), 0, 0);
+				initItemParameter(&(item[item_index++]),"Усред, В ", W(DALNOMER), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 2, line);
+				initItemParameter(&(item[item_index++]),"Усред L1 ", W(DALNOMER), initObjNotchangeable(&(obj[obj_index++]), show_optical_sensor_voltage), 1, 3, line);//NEW
+				initItemParameter(&(item[item_index++]),"N т.уср. ", W(DALNOMER), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);//NEW
+				initItemSubmenu(&(item[item_index++]), 	"Коэфф-ты", W(DALNOMER), W(L1COEFFICIENTS), 1, 5);
+					initItemLabel(&(item[item_index++]), "Коэффициенты L1", W(L1COEFFICIENTS), 0, 0);
+					initItemParameter(&(item[item_index++]),"A ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 1, line);//NEW
+					initItemParameter(&(item[item_index++]),"B ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 2, line);//NEW
+					initItemParameter(&(item[item_index++]),"C ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 3, line);//NEW
+					startup_index = item_index;
+
+					initItemParameter(&(item[item_index++]),"D ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 4, line);//NEW
+					initItemParameter(&(item[item_index++]),"E ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 5, line);//NEW
+					initItemParameter(&(item[item_index++]),"F ", W(L1COEFFICIENTS), initObjChangeable(&(obj[obj_index++]), inc_tenzo_zero, dec_tenzo_zero, show_tenzo_zero), 1, 6, line);//NEW
+
+					initItemSubmenu(&(item[item_index++]), "<назад", W(L1COEFFICIENTS), W(DALNOMER), 0, 7);
+				initItemSubmenu(&(item[item_index++]), "<назад", W(DALNOMER), W(FORMULAS), 0, 7);
 			initItemSubmenu(&(item[item_index++]), "<назад", W(FORMULAS), W(MODE), 0, 7);
 			initItemParameter(&(item[item_index++]), "датч.", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_sensor), 11, 4, column);
 			initItemParameter(&(item[item_index++]), "натяг", W(FORMULAS), initObjNotchangeable(&(obj[obj_index++]), show_cur_tension), 11, 6, column);

@@ -152,7 +152,7 @@ void show_tenzo_zero(char * ret){
 }
 
 void show_optical_sensor_voltage(char * ret){
-	sprintf(ret, "%3d.%02d", (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)/100, (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)%100);
+	sprintf(ret, "%2d.%02d", (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)/100, (int)(optical_sensor_data.optical_sensor_voltage*1000/4095)%100);
 }
 
 void show_cur_sensor(char * ret){
