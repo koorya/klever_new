@@ -163,7 +163,7 @@ void glcd_Buffer_Clear(void)
 
 void show_float(char * ret, float val){
 
-	char *tmpSign = (val < 0) ? "-" : "";
+	char *tmpSign = (val < 0) ? "-" : " ";
 	float tmpVal = (val < 0) ? -val : val;
 
 	int tmpInt1 = tmpVal;                  // Get the integer (678).

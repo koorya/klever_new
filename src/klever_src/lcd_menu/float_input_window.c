@@ -14,11 +14,14 @@ typedef enum{
 	FIW_SELECT_BACKUP,
 	FIW_SELECT_DIGIT,
 	FIW_MODIFY_DIGIT,
+	FIW_SELECT_SIGN,
+	FIW_MODIFY_SIGN,
 	FIW_MODIFY_POW
 } FLOAT_INPUT_WINDOW_STATE_TYPE;
 
 volatile FLOAT_INPUT_WINDOW_STATE_TYPE flnum_win_state;
 volatile uint8_t digit_array[8] = {0};
+volatile uint8_t digit_sing = 0; // 0 - positive, 1 - negative
 volatile uint8_t digit_index = 0;
 volatile float saved_value;
 
@@ -39,10 +42,13 @@ void setDigitArrayByFloat(float val){
 		tmpInt1 /= 10;
 		tmpInt2 /= 10;
 	}
+	if(val<0)
+		digit_sing = 1;
 
 }
 void showDigitArray(char * ret){
-	sprintf (ret, "%d%d%d%d.%d%d%d%d",
+	if (digit_sing == 0)
+		sprintf (ret, "+%d%d%d%d.%d%d%d%d",
 			digit_array[0],
 			digit_array[1],
 			digit_array[2],
@@ -51,6 +57,17 @@ void showDigitArray(char * ret){
 			digit_array[5],
 			digit_array[6],
 			digit_array[7]);
+	else
+		sprintf (ret, "-%d%d%d%d.%d%d%d%d",
+			digit_array[0],
+			digit_array[1],
+			digit_array[2],
+			digit_array[3],
+			digit_array[4],
+			digit_array[5],
+			digit_array[6],
+			digit_array[7]);
+
 }
 
 char showFloatNumberWindow(){
@@ -60,17 +77,22 @@ char showFloatNumberWindow(){
 	glcd_String(numb, 1, 1, FonOFF_InversOFF);
 
 	show_float(numb, saved_value);
-	char label[] = "last: +0000.0000   ";
-	sprintf(label, "last: %s", numb);
+	char label[] = "last:+0000.0000   ";
+	sprintf(label, "last:%s", numb);
 	glcd_String(label, 1, 5, FonOFF_InversOFF);
 
 	showDigitArray(numb);
 	glcd_String(numb, 1, 3, FonOFF_InversOFF);
 	if (flnum_win_state == FIW_SELECT_DIGIT){
-		glcd_String("^", digit_index>3?digit_index+2:digit_index+1, 4, FonOFF_InversOFF);
+		glcd_String("^", digit_index>3?digit_index+3:digit_index+2, 4, FonOFF_InversOFF);
 	}else if (flnum_win_state == FIW_MODIFY_DIGIT){
-		glcd_String("_", digit_index>3?digit_index+2:digit_index+1, 3, FonOFF_InversOFF);
-		glcd_String("_", digit_index>3?digit_index+2:digit_index+1, 2, FonOFF_InversOFF);
+		glcd_String("_", digit_index>3?digit_index+3:digit_index+2, 3, FonOFF_InversOFF);
+		glcd_String("_", digit_index>3?digit_index+3:digit_index+2, 2, FonOFF_InversOFF);
+	}else if (flnum_win_state == FIW_SELECT_SIGN){
+			glcd_String("^", 1, 4, FonOFF_InversOFF);
+	}else if (flnum_win_state == FIW_MODIFY_SIGN){
+			glcd_String("_", 1, 3, FonOFF_InversOFF);
+			glcd_String("_", 1, 2, FonOFF_InversOFF);
 	}else if (flnum_win_state == FIW_SELECT_SAVE){
 		glcd_String("Save and exit", 1, 7, FonOFF_InversOFF);
 	}else if (flnum_win_state == FIW_SELECT_BACKUP){
@@ -94,6 +116,8 @@ float getFloatByDigitArray(){
 		ret +=  mul * (float)digit_array[7-i];
 		mul *= 10;
 	}
+	if (digit_sing == 1)
+		ret = -ret;
 	return ret;
 }
 
@@ -110,7 +134,7 @@ SCREEN_COMMAND_TYPE floatNumberWindowSM(SCREEN_COMMAND_TYPE cmd){
 			if (digit_index > 0){
 				digit_index--;
 			}else{
-				flnum_win_state = FIW_SELECT_SAVE;
+				flnum_win_state = FIW_SELECT_SIGN;
 			}
 		}else if(cmd == SCR_COMM_select){
 			flnum_win_state = FIW_MODIFY_DIGIT;
@@ -153,7 +177,7 @@ SCREEN_COMMAND_TYPE floatNumberWindowSM(SCREEN_COMMAND_TYPE cmd){
 		}
 	}else if(flnum_win_state == FIW_SELECT_SAVE){
 		if(cmd == SCR_COMM_up){
-			flnum_win_state = FIW_SELECT_DIGIT;
+			flnum_win_state = FIW_SELECT_SIGN;
 			digit_index = 0;
 		}else if(cmd == SCR_COMM_down){
 			flnum_win_state = FIW_SELECT_BACKUP;
@@ -163,8 +187,31 @@ SCREEN_COMMAND_TYPE floatNumberWindowSM(SCREEN_COMMAND_TYPE cmd){
 			*(item_link->obj->value) = saved_value;
 			return SCR_COMM_back;
 		}
+	}else if(flnum_win_state == FIW_SELECT_SIGN){
+		if(cmd == SCR_COMM_up){
+			flnum_win_state = FIW_SELECT_DIGIT;
+			digit_index = 0;
+		}else if(cmd == SCR_COMM_down){
+			flnum_win_state = FIW_SELECT_SAVE;
+		}else if(cmd == SCR_COMM_select){
+			flnum_win_state = FIW_MODIFY_SIGN;
+		}else if(cmd == SCR_COMM_back){
+			*(item_link->obj->value) = saved_value;
+			return SCR_COMM_back;
+		}
+	}else if(flnum_win_state == FIW_MODIFY_SIGN){
+		if(cmd == SCR_COMM_up){
+			digit_sing = digit_sing?0:1;
+		}else if(cmd == SCR_COMM_down){
+			digit_sing = digit_sing?0:1;
+		}else if(cmd == SCR_COMM_select){
+			flnum_win_state = FIW_SELECT_SIGN;
+		}else if(cmd == SCR_COMM_back){
+			*(item_link->obj->value) = saved_value;
+			return SCR_COMM_back;
+		}
+		*(item_link->obj->value) = getFloatByDigitArray();
 	}
-
 	return SCR_COMM_defoult;
 }
 
