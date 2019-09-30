@@ -736,12 +736,12 @@ void Read_BDCR(void)
 	memory_optical_sensor_math_param.N_avg = BDCR_Read_Word(BKP_DR23);
 
 
-//	memory_optical_sensor_math_param.A = 0.1308;
-//	memory_optical_sensor_math_param.B = 3.5751;
-//	memory_optical_sensor_math_param.C = 37.1262;
-//	memory_optical_sensor_math_param.D = 181.1357;
-//	memory_optical_sensor_math_param.E = 390.734;
-//	memory_optical_sensor_math_param.F = 173.0224;
+//	memory_optical_sensor_math_param.A = -0.0704;
+//	memory_optical_sensor_math_param.B = 1.8188;
+//	memory_optical_sensor_math_param.C = -20.2707;
+//	memory_optical_sensor_math_param.D = 122.0045;
+//	memory_optical_sensor_math_param.E = -404.5909;
+//	memory_optical_sensor_math_param.F = 655.9280;
 //	memory_optical_sensor_math_param.N_avg = 1500;
 //	memory_optical_sensor_math_param.R = 3000;
 
