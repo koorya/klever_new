@@ -93,7 +93,7 @@ void updateTensionCalculation(void){
 	V_3 = V * V_2;
 	V_4 = V * V_3;
 	V_5 = V * V_4;
-	optical_sensor_math_param.L1 = round(100.0 * (A*V_5 - B*V_4 + C*V_3 - D*V_2 + E*V - F))/10;
+	optical_sensor_math_param.L1 = round(100.0 * (A*V_5 + B*V_4 + C*V_3 + D*V_2 + E*V + F))/10;
 
 	double L1 = (double)optical_sensor_math_param.L1 / 10.0;
 	double L2 = (double)optical_sensor_math_param.L2 / 10.0;
