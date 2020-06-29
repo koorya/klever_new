@@ -75,7 +75,7 @@ void calculateTension(uint16_t A0_raw, volatile TensionMathParameters * math_par
 	}
 
 
-	T = (4.1124 * N - 25.3748) / denom;
+	T = (4.341289 * N - 25.661127) / denom;
 
 	if(T < 0) T = 0;
 
