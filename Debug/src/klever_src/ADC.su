@@ -1,0 +1,3 @@
+ADC.c:11:6:ADC_delays	24	static
+ADC.c:26:6:ADC_Init	4	static
+ADC.c:90:10:ADC_read	24	static

@@ -1,0 +1,10 @@
+pid.c:3:6:setTime	16	static
+pid.c:11:6:setTimeByValue	16	static
+pid.c:16:6:timeIsLower	16	static
+pid.c:22:6:addTime	16	static
+pid.c:28:6:incremTime	16	static
+pid.c:34:6:fixOverflowIssue	24	static
+pid.c:48:6:makeAction	16	static
+pid.c:51:6:checkU	16	static
+pid.c:77:6:PIDreset	4	static
+pid.c:82:6:PIDregulating	16	static

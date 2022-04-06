@@ -1,0 +1,5 @@
+log.c:17:6:pushValueToBuffer	24	static
+log.c:31:6:initLog	48	static
+log.c:47:15:pullValueFromBuffer	16	static
+log.c:61:15:getValueFromBuffer	16	static
+log.c:75:6:LogTermToStr	80	static

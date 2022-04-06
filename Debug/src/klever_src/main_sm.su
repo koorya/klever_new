@@ -1,0 +1,4 @@
+main_sm.c:9:6:mainSMInit	4	static
+main_sm.c:23:6:pulsModeWork	24	static
+main_sm.c:42:9:isRegulatingLazyPidMode	16	static
+main_sm.c:56:6:lazyPIDModeWork	4	static

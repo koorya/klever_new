@@ -1,0 +1,8 @@
+I2C.c:11:6:I2C_delay	24	static
+I2C.c:25:6:I2C_GPIO_conf_with_Errata	4	static
+I2C.c:78:6:I2C_Init	8	static
+I2C.c:127:10:I2C_read_SR1	4	static
+I2C.c:135:10:I2C_read_SR2	4	static
+I2C.c:143:6:EEPROM_write_DWord	32	static
+I2C.c:224:10:EEPROM_read_word	24	static
+I2C.c:300:10:EEPROM_read_DWord	24	static

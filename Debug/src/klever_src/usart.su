@@ -1,0 +1,8 @@
+core_cm3.h:930:22:NVIC_EnableIRQ	16	static
+usart.c:11:6:sendNextByte	8	static
+usart.c:24:6:USART3_IRQHandler	8	static
+usart.c:45:6:DMA1_Channel7_IRQHandler	4	static
+usart.c:55:6:USART2_IRQHandler	4	static
+usart.c:68:6:usart2_init	8	static
+usart.c:119:6:sendStrToUart2	16	static
+usart.c:129:6:usart3_init_keyboard	8	static

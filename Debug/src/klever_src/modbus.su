@@ -1,0 +1,7 @@
+modbus.c:15:10:calculateCRC	24	static
+modbus.c:31:10:byteSwap	16	static
+modbus.c:34:10:calculateCRCBSw	16	static
+modbus.c:39:6:initAtv12	24	static
+modbus.c:56:6:setFreqAtv12	24	static
+modbus.c:71:6:stopAtv12	16	static
+modbus.c:84:6:runAtv12	16	static

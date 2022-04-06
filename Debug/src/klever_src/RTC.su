@@ -1,0 +1,8 @@
+RTC.c:4:6:__nop	4	static
+RTC.c:15:6:RCC_LSE_Config	16	static
+RTC.c:46:6:RTC_SetPrescaler	16	static
+RTC.c:61:9:RTC_Init	8	static
+RTC.c:100:10:RTC_GetRTC_Counter	32	static
+RTC.c:130:6:RTC_GetDateTime	104	static
+RTC.c:182:6:RTC_SetCounter	16	static
+RTC.c:192:10:RTC_GetCounter	16	static

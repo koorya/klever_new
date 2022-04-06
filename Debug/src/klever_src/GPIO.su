@@ -1,0 +1,8 @@
+GPIO.c:11:6:GPIO_delay	16	static
+GPIO.c:27:6:GPIO_Init	4	static
+GPIO.c:105:6:FC_rotate_Fwd	8	static
+GPIO.c:113:6:FC_rotate_Rev	8	static
+GPIO.c:121:6:FC_rotate_Stop	8	static
+GPIO.c:129:6:FC_tension_Up	8	static
+GPIO.c:137:6:FC_tension_Down	8	static
+GPIO.c:145:6:FC_tension_Hold	8	static
